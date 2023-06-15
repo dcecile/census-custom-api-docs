@@ -16,8 +16,10 @@ server.list_objects = () => {
   };
 };
 
-server.supported_operations = ({ object }) => {
-  console.log("listing operations for object", object);
+server.supported_operations = async ({ object }) => {
+  const delay = 10*1000;
+  console.log("listing operations for object with delay", delay, object);
+  await new Promise((resolve) => setTimeout(resolve, delay));
   return { operations: ["upsert"] };
 };
 
@@ -78,7 +80,7 @@ exports.handler = async function(event, context) {
   const requestBodyBuffer = event.body;
   const { id, method, params } = JSON.parse(requestBodyBuffer);
 
-  const result = server[method](params);
+  const result = await server[method](params);
 
   const response = {
     jsonrpc: "2.0",
