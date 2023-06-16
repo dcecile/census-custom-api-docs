@@ -17,7 +17,7 @@ server.list_objects = () => {
 };
 
 server.supported_operations = async ({ object }) => {
-  const delay = 10*1000;
+  const delay = 1*1000;
   console.log("listing operations for object with delay", delay, object);
   await new Promise((resolve) => setTimeout(resolve, delay));
   return { operations: ["upsert"] };
